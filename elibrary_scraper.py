@@ -2,6 +2,20 @@ import requests
 from bs4 import BeautifulSoup as bs
 from config import ucode as key
 
+'''
+    TODO:
+        - Сохранять данные
+            - подумать как это сделать:
+              SQLite?
+              mssql?
+
+            - Возможно стоит сделать связь с mssql
+              и запускать скрипт по крону раз в день
+
+            - в таком случае дописать модуль связи с бд
+            - и модуль проверки: есть такой продукт в бд или нет
+'''
+
 
 class ELibraryAPI:
     def __init__(self, key):
