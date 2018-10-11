@@ -2,14 +2,6 @@ import requests
 from bs4 import BeautifulSoup as bs
 from config import ucode as key
 
-'''
-	TODO:
-		- создать файл конфигурации, характеризующий
-		  все поля каждого вида публикации
-		  
-		- возвращать организацию автора в методе  get_author_info()
-		
-'''
 
 class ELibraryAPI:
 	def __init__(self, key):
@@ -114,17 +106,40 @@ class ELibraryAPI:
 			product_id=product_id)
 			
 		r = requests.get(url)
+		print(r.text)
 		soup = bs(r.text, "html.parser")
 		
 		product = {}
 		product['title'] = soup.item.title.text
-		product['authors_names'] =  soup.item.authors.text.split(', ')
+		product['authors_names'] = [name.strip() for name in soup.item.authors.text.replace('и др.', '').split(',')]
 		product['type_id'] = soup.item['genreid']
 		product['type'] = self.product_types[product['type_id']]
-		
-		# тут надо уже проверять какого типа продукт, и исходя из этого, подбирать параметры
-		# cкорее всего есть смысл создать файлик конфигурации 
-		# и там прописать все поля характерные для каждой публикации
+		product['link'] = 'http://elibrary.ru/item.asp?id='+product_id
+		product['ref'] =  soup.item.ref.text
+		product['year'] =  soup.item.year.text
+
+		if (soup.item.keywords):
+			product['keywords'] = [ kw.text for kw in soup.item.keywords ]
+
+		if (soup.item.pages):
+			product['pages'] = soup.item.pages.text
+
+		# если статья в журнале
+		if (product['type_id'] == '4'):
+			product['number'] = soup.item.number.text if soup.item.number else ""
+			product['volume'] = soup.item.volume.text if soup.item.volume else ""
+			product['journal'] = {
+				'id': soup.item.journal['id'],
+				'name': soup.item.journal.text,
+				'issn': soup.item.journal['issn'],
+				'impactFactor': soup.item.journal['impactfactor'],
+				'isVak': (soup.item.journal['vak'] == 1)
+			}
+
+		# если патент
+		if (product['type_id'] == '9'):
+			product['code'] = soup.item.code.text
+			product['date'] = soup.item.date.text
 		
 		return product
 		
@@ -139,8 +154,8 @@ class ELibraryAPI:
 		
 		author_info = {}
 		
-		for property in self.author_properties_names:
-			author_info[property] = soup.author[property.lower()]
+		for prop in self.author_properties_names:
+			author_info[prop] = soup.author[prop.lower()]
 		
 		author_info['lastName'] 	= soup.author.lastname.text
 		author_info['firstName']	= soup.author.firstname.text
@@ -154,11 +169,14 @@ class ELibraryAPI:
 		
 		
 if __name__ == '__main__':
+	assert key
 	el_api = ELibraryAPI(key=key)
-	authors = el_api.get_authors_id()
-	products = el_api.get_products_list_by_author(authors[0])
-	product = el_api.get_product_by_id(products[0])
+	# authors = el_api.get_authors_id()
+	# products = el_api.get_products_list_by_author(authors[0])
+	# product = el_api.get_product_by_id(products[0])
+
+	product = el_api.get_product_by_id('1078407')
 	
-	print(el_api.get_author_info(authors[0]))
-	
-	print(product)
+	# print(el_api.get_author_info(authors[0]))
+	from pprint import pprint as pp
+	pp(product)
