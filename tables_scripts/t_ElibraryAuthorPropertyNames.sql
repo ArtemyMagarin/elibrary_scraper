@@ -2,9 +2,9 @@ use sciratedb
 go
 
 create table tElibraryAuthorPropertyNames (
-	id int identity(1,1) constraint PK_tElibraryAuthorPropertyNames primary key,
-	fname nvarchar(512) NOT NULL,
-	codename nvarchar(255) NOT NULL
+    id int identity(1,1) constraint PK_tElibraryAuthorPropertyNames primary key,
+    fname nvarchar(512) NOT NULL,
+    codename nvarchar(255) NOT NULL
 )
 
 insert into tElibraryAuthorPropertyNames (codename, fname) values

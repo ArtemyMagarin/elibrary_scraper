@@ -12,7 +12,15 @@ metadata = MetaData(bind=engine)
 
 Base = declarative_base()
 
+from models.Journal                         import Journal
 
-from models.Personnel import Personnel
+
+from models.Personnel                       import Personnel
+from models.ElibraryProduct                 import ElibraryProduct
+from models.ElibraryProductType             import ElibraryProductType
+from models.ElibraryJournal                 import ElibraryJournal
+from models.ElibraryAuthor                  import ElibraryAuthor
+from models.ElibraryAuthorElibraryProduct   import ElibraryAuthorElibraryProduct
+from models.ElibraryAuthorPropertyNames     import ElibraryAuthorPropertyNames
 
 __all__ = [ 'Personnel', ]
