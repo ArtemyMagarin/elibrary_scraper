@@ -11,3 +11,4 @@ create table tElibraryJournals (
     lnkJournal int,
     FOREIGN KEY (lnkJournal) REFERENCES tJournals(id)
 )
+

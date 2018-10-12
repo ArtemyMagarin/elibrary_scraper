@@ -8,3 +8,4 @@ create table tElibraryAuthorElibraryProduct(
 	FOREIGN KEY (lnkElibraryAuthor) REFERENCES tElibraryAuthors(id),
 	FOREIGN KEY (lnkElibraryProduct) REFERENCES tElibraryProducts(id)
 )
+

@@ -18,3 +18,4 @@ create table tElibraryProducts(
 	FOREIGN KEY (lnkElibraryProductType) REFERENCES tElibraryProductTypes(id),
 	FOREIGN KEY (lnkElibraryJournal) REFERENCES tElibraryJournals(id)
 )
+
