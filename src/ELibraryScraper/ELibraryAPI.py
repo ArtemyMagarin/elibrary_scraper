@@ -1,6 +1,6 @@
 import requests
 from bs4 import BeautifulSoup as bs
-from config import ucode as key
+
 
 '''
     TODO:
@@ -166,10 +166,11 @@ class ELibraryAPI:
         for prop in self.author_properties_names:
             author_info[prop] = soup.author[prop.lower()]
         
-        author_info['lastName']     = soup.author.lastname.text
-        author_info['firstName']    = soup.author.firstname.text
-        author_info['secondName']   = soup.author.secondname.text
-        author_info['city']         = soup.author.city.text
+        author_info['elibraryAuthorId'] = author_id
+        author_info['lastName']         = soup.author.lastname.text
+        author_info['firstName']        = soup.author.firstname.text
+        author_info['secondName']       = soup.author.secondname.text
+        author_info['city']             = soup.author.city.text
         
         
         return author_info
@@ -177,9 +178,3 @@ class ELibraryAPI:
         
         
         
-if __name__ == '__main__':
-    el_api = ELibraryAPI(key=key)
-    product = el_api.get_product_by_id('1078407')
-    from pprint import pprint as pp
-    pp(product)
-
