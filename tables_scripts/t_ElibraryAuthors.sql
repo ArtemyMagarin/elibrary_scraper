@@ -46,6 +46,8 @@ create table tElibraryAuthors (
     publ5 int,
     citPubl5 int,
     cit5 int,
+    createdAt datetime,
+    updatedAt datetime,
     FOREIGN KEY (lnkPersonnel) REFERENCES tPersonnel(id)
 )
 

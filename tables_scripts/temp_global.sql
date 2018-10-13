@@ -54,6 +54,8 @@ create table tElibraryJournals (
     isVak int,
     issn nvarchar(255),
     lnkJournal int,
+    createdAt datetime,
+    updatedAt datetime,
     FOREIGN KEY (lnkJournal) REFERENCES tJournals(id)
 )
 
@@ -96,6 +98,8 @@ create table tElibraryProducts(
     volume nvarchar(127),
     code nvarchar(127),
     date nvarchar(127),
+    createdAt datetime,
+    updatedAt datetime,
     FOREIGN KEY (lnkElibraryProductType) REFERENCES tElibraryProductTypes(id),
     FOREIGN KEY (lnkElibraryJournal) REFERENCES tElibraryJournals(id)
 )
@@ -146,6 +150,8 @@ create table tElibraryAuthors (
     publ5 int,
     citPubl5 int,
     cit5 int,
+    createdAt datetime,
+    updatedAt datetime,
     FOREIGN KEY (lnkPersonnel) REFERENCES tPersonnel(id)
 )
 

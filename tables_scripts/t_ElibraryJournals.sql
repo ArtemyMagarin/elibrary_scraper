@@ -9,6 +9,8 @@ create table tElibraryJournals (
     isVak int,
     issn nvarchar(255),
     lnkJournal int,
+    createdAt datetime,
+    updatedAt datetime,
     FOREIGN KEY (lnkJournal) REFERENCES tJournals(id)
 )
 
