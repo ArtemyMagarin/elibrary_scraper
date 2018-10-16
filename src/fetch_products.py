@@ -16,13 +16,13 @@ el = ELibraryAPI(key=key)
 session = get_session()
 
 # getting all authors from db
-db_authors = session.query(ElibraryAuthor).all()[:1]
+db_authors = session.query(ElibraryAuthor).all()
 
 for db_author in db_authors:
     # getting list of products ids
     products = el.get_products_list_by_author(str(db_author.elibraryAuthorId))
     
-    for product_id in products[:5]:
+    for product_id in products:
         product = el.get_product_by_id(product_id)
         db_product = session.query(ElibraryProduct).filter(
             ElibraryProduct.elibraryId==product_id).first()
