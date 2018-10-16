@@ -9,29 +9,8 @@ from datetime import datetime
 from ELibraryScraper import ELibraryAPI
 from ELibraryScraper.config import ucode as key
 
-from utils import get_session
+from utils import get_session, toCorrectType, equals
 from models import ElibraryAuthor
-
-def toCorrectType(value):
-    '''
-        If value is string, but must be a float or int,
-        this function convert it
-    '''
-    if value and type(value) == str:
-        if value.upper() == value.lower():
-            if value.find(',') + 1 or value.find('.') + 1:
-                value = float(value.replace(',', '.'))
-            else:
-                value = int(value)
-
-    return value
-
-
-def equals(val1, val2):
-    if type(val1) == type(val2) == float:
-        return ((val1 - val2) ** 2) < (0.001 ** 2)
-    else:
-        return val1 == val2
 
 
 el = ELibraryAPI(key=key)

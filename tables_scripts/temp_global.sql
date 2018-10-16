@@ -86,6 +86,7 @@ insert into tElibraryProductTypes (fname) values
 
 create table tElibraryProducts(
     id int identity(1,1) constraint PK_tElibraryProducts primary key,
+    elibraryId int not null,
     lnkElibraryProductType int not null,
     lnkElibraryJournal int,
     title nvarchar(2048),
@@ -98,6 +99,7 @@ create table tElibraryProducts(
     volume nvarchar(127),
     code nvarchar(127),
     date nvarchar(127),
+    
     createdAt datetime,
     updatedAt datetime,
     FOREIGN KEY (lnkElibraryProductType) REFERENCES tElibraryProductTypes(id),

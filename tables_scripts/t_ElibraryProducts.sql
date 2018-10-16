@@ -3,6 +3,7 @@ go
 
 create table tElibraryProducts(
     id int identity(1,1) constraint PK_tElibraryProducts primary key,
+    elibraryId int not null,
     lnkElibraryProductType int not null,
     lnkElibraryJournal int,
     title nvarchar(2048),

@@ -21,9 +21,9 @@ from models.Personnel                       import Personnel
 
 from models.ElibraryProductType             import ElibraryProductType
 from models.ElibraryJournal                 import ElibraryJournal
+from models.ElibraryAuthorElibraryProduct   import ElibraryAuthorElibraryProduct
 from models.ElibraryProduct                 import ElibraryProduct
 from models.ElibraryAuthor                  import ElibraryAuthor
-from models.ElibraryAuthorElibraryProduct   import ElibraryAuthorElibraryProduct
 from models.ElibraryAuthorPropertyNames     import ElibraryAuthorPropertyNames
 
 __all__ = [ 'Personnel', ]

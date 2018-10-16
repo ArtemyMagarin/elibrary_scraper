@@ -11,3 +11,28 @@ def get_session():
     session = Session()
 
     return session
+
+
+def toCorrectType(value):
+    '''
+        If value is string, but must be a float or int,
+        this function convert it
+    '''
+    if value and type(value) == str:
+        if value.upper() == value.lower():
+            if value.find('-') + 1 or value.find('(') + 1:
+                return value
+            if value.find(',') + 1 or value.find('.') + 1:
+                value = float(value.replace(',', '.'))
+            else:
+                value = int(value)
+
+    return value
+
+
+def equals(val1, val2):
+    if type(val1) == type(val2) == float:
+        return ((val1 - val2) ** 2) < (0.001 ** 2)
+    else:
+        return val1 == val2
+

@@ -119,37 +119,38 @@ class ELibraryAPI:
         soup = bs(r.text, "html.parser")
         
         product = {}
+        product['elibraryId'] = int(product_id)
         product['title'] = soup.item.title.text
-        product['authors_names'] = [name.strip() for name in soup.item.authors.text.replace('и др.', '').split(',')]
-        product['type_id'] = soup.item['genreid']
-        product['type'] = self.product_types[product['type_id']]
-        product['link'] = 'http://elibrary.ru/item.asp?id='+product_id
+        product['authorsDumbString'] = ', '.join([name.strip() for name in soup.item.authors.text.replace('и др.', '').split(',')])
+        product['lnkElibraryProductType'] = int(soup.item['genreid'])
+        # product['type'] = self.product_types[str(product['lnkElibraryProductType'])]
+        # product['link'] = 'http://elibrary.ru/item.asp?id='+product_id
         product['ref'] =  soup.item.ref.text
         product['year'] =  soup.item.year.text
 
         if (soup.item.keywords):
-            product['keywords'] = [ kw.text for kw in soup.item.keywords ]
+            product['keywords'] = ', '.join([ kw.text for kw in soup.item.keywords ])
 
         if (soup.item.pages):
             product['pages'] = soup.item.pages.text
 
         # если статья в журнале
-        if (product['type_id'] == '4'):
+        if (product['lnkElibraryProductType'] == 4):
             product['number'] = soup.item.number.text if soup.item.number else ""
             product['volume'] = soup.item.volume.text if soup.item.volume else ""
             product['journal'] = {
                 'id': soup.item.journal['id'],
                 'name': soup.item.journal.text,
                 'issn': soup.item.journal['issn'],
-                'impactFactor': soup.item.journal['impactfactor'],
+                'impactFactor': float(soup.item.journal['impactfactor'].replace(',', '.')) if len(soup.item.journal['impactfactor']) else None,
                 'isVak': (soup.item.journal['vak'] == 1)
             }
 
         # если патент
-        if (product['type_id'] == '9'):
+        if (product['lnkElibraryProductType'] == 9):
             product['code'] = soup.item.code.text
             product['date'] = soup.item.date.text
-        
+
         return product
         
     def get_author_info(self, author_id):

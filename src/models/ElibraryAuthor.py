@@ -6,4 +6,5 @@ class ElibraryAuthor(Base):
         metadata, 
         autoload=True)
 
-    Personnel = relationship('Personnel')
+    Personnel        = relationship('Personnel')
+    ElibraryProducts = relationship('ElibraryAuthorElibraryProduct')
