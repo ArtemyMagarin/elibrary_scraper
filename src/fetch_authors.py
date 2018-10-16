@@ -3,6 +3,7 @@
     This script fetchs authors data from elibrary.ru
     into database
 '''
+
 from datetime import datetime
 
 from ELibraryScraper import ELibraryAPI
@@ -13,7 +14,7 @@ from models import ElibraryAuthor
 
 def toCorrectType(value):
     '''
-        If value is string, but must be a float ot int,
+        If value is string, but must be a float or int,
         this function convert it
     '''
     if value and type(value) == str:
