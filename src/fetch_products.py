@@ -46,6 +46,19 @@ for db_author in db_authors:
 
         # if update mode is off, continue
         if db_product and not UPDATE:
+
+            # check anyway: if old product, but new owner, create new m2m
+            ap = session.query(ElibraryAuthorElibraryProduct).filter(
+                ElibraryAuthorElibraryProduct.lnkElibraryAuthor==db_author.id).filter(
+                ElibraryAuthorElibraryProduct.lnkElibraryProduct==db_product.id).first()
+
+            if not ap:
+                ap = ElibraryAuthorElibraryProduct()
+                ap.ElibraryAuthor  = db_author
+                db_product.ElibraryAuthors.append(ap)
+                session.add(db_product)
+                session.commit()
+
             continue 
 
         product = el.get_product_by_id(product_id)
