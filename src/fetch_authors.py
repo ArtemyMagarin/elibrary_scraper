@@ -46,6 +46,7 @@ for author in authors:
     if was_created or was_updated:
         db_author.updatedAt = nowdate
         session.add(db_author)
+        session.commit()
 
-session.commit()
+session.close()
 

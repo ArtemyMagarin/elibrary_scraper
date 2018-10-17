@@ -120,16 +120,16 @@ class ELibraryAPI:
         
         product = {}
         product['elibraryId'] = int(product_id)
-        product['title'] = soup.item.title.text
+        product['title'] = soup.item.title.text if soup.item.title else ''
         product['authorsDumbString'] = ', '.join([name.strip() for name in soup.item.authors.text.replace('и др.', '').split(',')])
         product['lnkElibraryProductType'] = int(soup.item['genreid'])
         # product['type'] = self.product_types[str(product['lnkElibraryProductType'])]
         # product['link'] = 'http://elibrary.ru/item.asp?id='+product_id
-        product['ref'] =  soup.item.ref.text
-        product['year'] =  soup.item.year.text
+        product['ref'] =  soup.item.ref.text if soup.item.ref else ''
+        product['year'] =  soup.item.year.text if soup.item.year else ''
 
         if (soup.item.keywords):
-            product['keywords'] = ', '.join([ kw.text for kw in soup.item.keywords ])
+            product['keywords'] = ', '.join([ kw.text for kw in soup.item.keywords ]) 
 
         if (soup.item.pages):
             product['pages'] = soup.item.pages.text
@@ -148,8 +148,8 @@ class ELibraryAPI:
 
         # если патент
         if (product['lnkElibraryProductType'] == 9):
-            product['code'] = soup.item.code.text
-            product['date'] = soup.item.date.text
+            product['code'] = soup.item.code.text if soup.item.code else ''
+            product['date'] = soup.item.date.text if soup.item.date else ''
 
         return product
         

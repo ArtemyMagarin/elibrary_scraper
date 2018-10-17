@@ -1,6 +1,7 @@
 from config import db_login, db_password
 from sqlalchemy import create_engine
 from sqlalchemy.orm import sessionmaker
+import re
 
 def get_session():
     engine = create_engine('mssql+pyodbc://{db_login}:{db_password}@localhost:1433/sciratedb?driver=SQL+Server+Native+Client+10.0'.format(
@@ -19,9 +20,7 @@ def toCorrectType(value):
         this function convert it
     '''
     if value and type(value) == str:
-        if value.upper() == value.lower():
-            if value.find('-') + 1 or value.find('(') + 1:
-                return value
+        if len(re.findall(r"^\d{1,}[,.]?\d{0,}$", value)): 
             if value.find(',') + 1 or value.find('.') + 1:
                 value = float(value.replace(',', '.'))
             else:
