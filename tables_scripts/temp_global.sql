@@ -99,12 +99,15 @@ create table tElibraryProducts(
     volume nvarchar(127),
     code nvarchar(127),
     date nvarchar(127),
-    
+    lnkSciProduct int,
+
     createdAt datetime,
     updatedAt datetime,
     FOREIGN KEY (lnkElibraryProductType) REFERENCES tElibraryProductTypes(id),
     FOREIGN KEY (lnkElibraryJournal) REFERENCES tElibraryJournals(id)
+    FOREIGN KEY (lnkSciProduct) REFERENCES tSciProducts(id)
 )
+
 
 
 create table tElibraryAuthors (

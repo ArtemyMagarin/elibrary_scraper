@@ -8,7 +8,6 @@ session = get_session()
 
 # getting all authors from db
 elibrary_authors = session.query(ElibraryAuthor).all()
-scirate_authors  = session.query(Personnel).all()
 
 for el_author in elibrary_authors:
     personnels = session.query(Personnel).\

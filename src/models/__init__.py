@@ -14,7 +14,7 @@ metadata.reflect()
 Base = declarative_base()
 Base.metadata.bind = engine
 
-
+from models.SciProduct                      import SciProduct
 from models.Journal                         import Journal
 from models.Personnel                       import Personnel
 

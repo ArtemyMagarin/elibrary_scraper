@@ -10,3 +10,4 @@ class ElibraryProduct(Base):
     ElibraryProductType = relationship(ElibraryProductType)
     ElibraryJournal     = relationship(ElibraryJournal)
     ElibraryAuthors     = relationship('ElibraryAuthorElibraryProduct')
+    SciProduct          = relationship(SciProduct)
