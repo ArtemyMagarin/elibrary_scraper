@@ -129,7 +129,8 @@ class ELibraryAPI:
         product['year'] =  soup.item.year.text if soup.item.year else ''
 
         if (soup.item.keywords):
-            product['keywords'] = ', '.join([ kw.text for kw in soup.item.keywords ]) 
+            # max len is 2048
+            product['keywords'] = (', '.join([ kw.text for kw in soup.item.keywords ]))[:2047] 
 
         if (soup.item.pages):
             product['pages'] = soup.item.pages.text
