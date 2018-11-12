@@ -144,7 +144,7 @@ class ELibraryAPI:
                 'name': soup.item.journal.text,
                 'issn': soup.item.journal['issn'],
                 'impactFactor': float(soup.item.journal['impactfactor'].replace(',', '.')) if len(soup.item.journal['impactfactor']) else None,
-                'isVak': (soup.item.journal['vak'] == 1)
+                'isVak': (str(soup.item.journal['vak']) == str(1))
             }
 
         # если патент
